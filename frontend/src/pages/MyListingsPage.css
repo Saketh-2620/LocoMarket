@@ -1,0 +1,92 @@
+.my-listings-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.my-listings-page h1 {
+  color: #c9d1d9;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tabs button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #30363d;
+  background: #161b22;
+  color: #8b949e;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background: #238636;
+  color: #fff;
+  border-color: #238636;
+}
+
+.empty {
+  color: #8b949e;
+}
+
+.empty a {
+  color: #7ee787;
+}
+
+.listings-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.listing-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.listing-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-body a {
+  color: #c9d1d9;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.card-body .price {
+  color: #7ee787;
+  font-weight: 700;
+}
+
+.btn-sold {
+  background: #1f6feb;
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.sold-date {
+  font-size: 0.75rem;
+  color: #8b949e;
+}
