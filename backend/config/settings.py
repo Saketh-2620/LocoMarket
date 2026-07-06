@@ -119,6 +119,7 @@ CORS_ALLOWED_ORIGINS = config(
     default="http://localhost:5173",
 ).split(",")
 CORS_ALLOW_CREDENTIALS = True
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
