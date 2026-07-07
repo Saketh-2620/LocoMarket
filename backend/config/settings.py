@@ -143,13 +143,22 @@ REST_AUTH = {
     "JWT_AUTH_HTTPONLY": False,
 }
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [config("REDIS_URL", default="redis://redis:6379/0")],
-            "capacity": 1500,
-            "expiry": 10,
+USE_REDIS = config("USE_REDIS", default=False, cast=bool)
+
+if USE_REDIS:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [config("REDIS_URL", default="redis://redis:6379/0")],
+                "capacity": 1500,
+                "expiry": 10,
+            },
         },
-    },
-}
+    }
+else:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels.layers.InMemoryChannelLayer",
+        },
+    }

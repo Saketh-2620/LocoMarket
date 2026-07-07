@@ -11,6 +11,10 @@ from .serializers import MessageSerializer
 User = get_user_model()
 
 
+def json_safe_dumps(payload):
+    return json.dumps(payload, default=str)
+
+
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_id = self.scope["url_route"]["kwargs"]["room_id"]
@@ -45,7 +49,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         message = await self._create_message(self.room_id, user, text)
         payload_data = await self._serialize_message(message)
-        payload = json.dumps({"type": "chat.message", "message": payload_data})
+        payload = json_safe_dumps({"type": "chat.message", "message": payload_data})
 
         # Echo to sender (group_send does not always deliver back to the sending consumer).
         await self.send(text_data=payload)
@@ -57,7 +61,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self._notify_other_user(message, payload_data)
 
     async def chat_message(self, event):
-        await self.send(text_data=json.dumps({"type": "chat.message", "message": event["message"]}))
+        await self.send(text_data=json_safe_dumps({"type": "chat.message", "message": event["message"]}))
 
     @database_sync_to_async
     def _user_in_room(self, user, room_id):
@@ -107,7 +111,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
     async def chat_notification(self, event):
         await self.send(
-            text_data=json.dumps(
+            text_data=json_safe_dumps(
                 {
                     "type": "chat.notification",
                     "room_id": event["room_id"],
